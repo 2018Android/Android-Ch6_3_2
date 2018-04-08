@@ -8,7 +8,6 @@ import android.widget.ImageButton;
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton imgbtn1,imgbtn2,imgbtn3;
-    private int num1,num2,num3;
     private int[] pp= new int[4];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +19,17 @@ public class MainActivity extends AppCompatActivity {
         pp[2] = R.drawable.h7;
         pp[3] = R.drawable.h11;
 
-        //亂數
-        num1 = (int)(Math.random()*3);
-        num2 = (int)(Math.random()*3);
-        num3 = (int)(Math.random()*3);
+
+        final int[] random = new int[3]; //產生一個陣列:random[0].random[1].random[2]
+        for (int i=0; i<3; i++){
+            random [i] = (int)(Math.random()*4); //產生0~3的亂數
+            for (int j=0; j<i; j++){ //檢查有沒有重複
+                if (random[i] == random[j]){ //重複就跳出迴圈重新抽一次
+                    i--;
+                    break;
+                }
+            }
+        }
 
         imgbtn1= (ImageButton)findViewById(R.id.imgbtn1);
         imgbtn2= (ImageButton)findViewById(R.id.imgbtn2);
@@ -34,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         imgbtn1.setOnClickListener(
                 new View.OnClickListener(){
                     public  void onClick(View v){
-                        imgbtn1.setImageResource(pp[num1]);
+                        imgbtn1.setImageResource(pp[random[0]]); //random[0]的數字丟到pp[]裡，顯示對應的圖片
                     }
                 }
         );
@@ -42,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         imgbtn2.setOnClickListener(
                 new View.OnClickListener(){
                     public  void onClick(View v){
-                        imgbtn2.setImageResource(pp[num2]);
+                        imgbtn2.setImageResource(pp[random[1]]); //random[1]的數字丟到pp[]裡，顯示對應的圖片
                     }
                 }
         );
@@ -50,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         imgbtn3.setOnClickListener(
                 new View.OnClickListener(){
                     public  void onClick(View v){
-                        imgbtn3.setImageResource(pp[num3]);
+                        imgbtn3.setImageResource(pp[random[2]]); //random[2]的數字丟到pp[]裡，顯示對應的圖片
                     }
                 }
         );
